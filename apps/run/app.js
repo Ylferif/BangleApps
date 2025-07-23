@@ -108,7 +108,7 @@ var lc = [];
 
 const getString = (stats) => {
   if(stats.title === 'Dist'){
-    return `${(stats.getValue() * 0.6213711922).toFixed(2)}M`
+    return `${(stats.getValue() * 0.000621371).toFixed(2)}M`
   }
 
   return stats.getString();
