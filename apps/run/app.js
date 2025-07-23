@@ -105,6 +105,15 @@ function onStartStop() {
 }
 
 var lc = [];
+
+const getString = (stats) => {
+  if(stats.title === 'Dist'){
+    return `${(stats.getValue() * 0.6213711922).toFixed(2)}M`
+  }
+
+  return stats.getString();
+}
+
 // Load stats in pair by pair
 for (var i=0;i<statIDs.length;i+=2) {
   var sa = exs.stats[statIDs[i+0]];
@@ -113,11 +122,11 @@ for (var i=0;i<statIDs.length;i+=2) {
     sa?{type:"txt", font:fontHeading, label:sa.title.toUpperCase(), fillx:1, col:headingCol }:{},
     sb?{type:"txt", font:fontHeading, label:sb.title.toUpperCase(), fillx:1, col:headingCol }:{}
   ]}, { type:"h", filly:1, c:[
-    sa?{type:"txt", font:fontValue, label:sa.getString(), id:sa.id, fillx:1 }:{},
-    sb?{type:"txt", font:fontValue, label:sb.getString(), id:sb.id, fillx:1 }:{}
+    sa?{type:"txt", font:fontValue, label:getString(sa), id:sa.id, fillx:1 }:{},
+    sb?{type:"txt", font:fontValue, label:getString(sb), id:sb.id, fillx:1 }:{}
   ]});
-  if (sa) sa.on('changed', e=>layout[e.id].label = e.getString());
-  if (sb) sb.on('changed', e=>layout[e.id].label = e.getString());
+  if (sa) sa.on('changed', e=>layout[e.id].label = getString(e));
+  if (sb) sb.on('changed', e=>layout[e.id].label = getString(e));
 }
 // At the bottom put time/GPS state/etc
 lc.push({ type:"h", filly:1, c:[
